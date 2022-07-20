@@ -3,8 +3,8 @@
 #include<stdlib.h>
 %}
 %token Num id
-%left + -
-%left * /
+%left '+' '-'
+%left '*' '/'
 %%
 E:T {printf("result is %d",result); return 0;}
 ;
