@@ -2,16 +2,27 @@
 #include<stdio.h>
 #include<stdlib.h>
 %}
+%token Num id
+%left '+' '-'
+%left '*' '/'
 %%
-E:T D
+E:T {printf("result is %d",result); return 0;}
 ;
-D:'+'TD
-|
+T:T'+'T {$$=$1+$3;}
+|T'-'T {$$=$1-$3;}
+|T'*'T {$$=$1*$3;}
+|T'/'T {$$=$1/$3;}
+|id {$$=$1;}
+|Num {$$=$1;}
 ;
-T:F U
-;
-U:'*'FU
-|
-;
+%%
+int main()
+{
+  printf("Enter the expression\n");
+  yyparse();
+}
+yyerror(){
+ printf("The expression is invalid");
+ exit(0);
+}
 
-%%
