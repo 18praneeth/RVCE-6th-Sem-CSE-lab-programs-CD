@@ -6,7 +6,7 @@
 %left '+' '-'
 %left '*' '/'
 %%
-E:T {printf("result is %d",result); return 0;}
+E:T {printf("result is %d",$$); return 0;}
 ;
 T:T'+'T {$$=$1+$3;}
 |T'-'T {$$=$1-$3;}

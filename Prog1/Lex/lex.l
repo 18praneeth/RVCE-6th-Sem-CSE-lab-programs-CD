@@ -6,7 +6,7 @@ int lines=0,chars=0,words=0,spaces=0;
 \n	{lines++;} 
 \t	{spaces+=4;}
 [ ]	{spaces++;}
-[a-z A-Z 0-9]+ {words++;chars+=yyleng;} //[^ \t\n#] not space, tab, line, #
+[^ \t\n#]+ {words++;chars+=yyleng;} //[^ \t\n#] not space, tab, line, #
 # {return 0;}
 %%
 int yywrap()

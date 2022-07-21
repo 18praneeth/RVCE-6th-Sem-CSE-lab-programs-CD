@@ -1,7 +1,6 @@
 %{
 	#include "y.tab.h"
 %}
- 
 %%
 "for" return FOR;
 "(" return LPAREN;
@@ -18,8 +17,3 @@
 [0-9]+ return NUM;
 " " return SPACE; 
 %%
-
-int yywrap()
-{
-    return 1;
-}

@@ -1,52 +1,41 @@
 %{
-	# include <stdio.h>
-	# include <stdlib.h>
-	int count=0;
+	#include<stdio.h>
+	#include<stdlib.h>
+	int cnt=0;
 %}
- 
 %token FOR LPAREN RPAREN LF RF EXP SPACE NUM
- 
 %%
 S:I
 ;
- 
-I:FOR A B {count++;}
+I:FOR A B	{cnt++;}
 ;
- 
 A:LPAREN E';'E';'E RPAREN
 ;
- 
-E:EXP Z NUM
-|EXP Z EXP
+E:EXP Z EXP
+|EXP Z NUM
 |EXP U
 |SPACE
 |
 ;
- 
 Z:'='|'>'|'<'|'<''='|'>''='|'=''+'|'=''-'
 ;
- 
 U:'+''+'|'-''-' 
 ;
- 
 B:LF B RF
 |I
 |EXP
 |EXP SPACE I
 |
 ;
- 
 %%
- 
 int main()
 {
-    yyparse();
-    printf("\ncount of for is %d\n",count);
-    return 0;
+	yyparse();
+	printf("Count of for : %d\n",cnt);
+	return 0;
 }
- 
 int yyerror()
 {
-    printf("\n Invalid \n");
-    return 0;
+	printf("Invalid\n");
+	exit(0);
 }
