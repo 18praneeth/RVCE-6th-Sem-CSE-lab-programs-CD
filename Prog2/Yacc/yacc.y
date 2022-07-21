@@ -1,28 +1,31 @@
 %{
-#include<stdio.h>
-#include<stdlib.h>
+	#include<stdio.h>
+	#include<stdlib.h>		
 %}
-%token Num id
+%token NUM
 %left '+' '-'
-%left '*' '/'
+%left '/' '*'
 %%
-E:T {printf("result is %d",$$); return 0;}
+S:I {printf("Result is %d\n",$$);}
 ;
-T:T'+'T {$$=$1+$3;}
-|T'-'T {$$=$1-$3;}
-|T'*'T {$$=$1*$3;}
-|T'/'T {$$=$1/$3;}
-|id {$$=$1;}
-|Num {$$=$1;}
+I:I'+'I 	{$$=$1+$3;}
+|I'-'I 		{$$=$1-$3;}
+|I'*'I 		{$$=$1*$3;}
+|I'/'I 		{if($3==0){yyerror();}	else{$$=$1/$3;}}
+|'('I')'	{$$=$2;}
+|NUM		{$$=$1;}
+|'-'NUM		{$$=-$2;}
 ;
 %%
 int main()
 {
-  printf("Enter the expression\n");
-  yyparse();
+	printf("Enter operation:\n");
+	yyparse();
+	printf("Valid\n");
+	return 0;
 }
-yyerror(){
- printf("The expression is invalid");
- exit(0);
+int yyerror()
+{
+	printf("Invalid\n");
+	exit(0);
 }
-

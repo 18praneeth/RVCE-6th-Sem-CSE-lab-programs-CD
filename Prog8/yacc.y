@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern FILE *yyin; // optional
-
+//extern FILE *yyin;
 
 typedef char *string;
 
@@ -14,8 +13,7 @@ struct {
 int idx = -1;
 
 string addToTable(string, string, char);
-void threeAddressCode();
-void quadruples();
+void targetCode();
 %}
 
 %union {
@@ -49,21 +47,17 @@ EXP	: EXP '+' EXP { $$ = addToTable($1, $3, '+'); }
 
 %%
 
-int yyerror() {
-	printf("Error");
+int yyerror(const char *s) {
+	printf("Error %s", s);
 	exit(0);
 }
 
 int main() {
-	// yyin = fopen("6.txt", "r"); 
-	// Only if input is given from text file
+	//yyin = fopen("8.txt", "r");
 	yyparse();
 
-	printf("\nThree address code:\n");
-	threeAddressCode();
-
-	printf("\nQuadruples:\n");
-	quadruples();
+	printf("\nTarget code:\n");
+	targetCode();
 }
 
 
@@ -76,6 +70,7 @@ string addToTable(string op1, string op2, char op) {
 	idx++;
 	string res = malloc(3);
 	sprintf(res, "@%c", idx + 'A');
+
 	code[idx].op1 = op1;
 	code[idx].op2 = op2;
 	code[idx].op = op;
@@ -83,15 +78,19 @@ string addToTable(string op1, string op2, char op) {
 	return res;
 }
 
-void threeAddressCode() {
+void targetCode() {
 	for(int i = 0; i <= idx; i++) {
-		printf("%s = %s %c %s\n", code[i].res, code[i].op1, code[i].op, code[i].op2);
-	}
-}
+		string instr;
+		switch(code[i].op) {
+		case '+': instr = "ADD"; break;
+		case '-': instr = "SUB"; break;
+		case '*': instr = "MUL"; break;
+		case '/': instr = "DIV"; break;
+		}
 
-
-void quadruples() {
-	for(int i = 0; i <= idx; i++) {
-		printf("%d:\t%s\t%s\t%s\t%c\n", i, code[i].res, code[i].op1, code[i].op2, code[i].op);
+		printf("LOAD\t R1, %s\n", code[i].op1);
+		printf("LOAD\t R2, %s\n", code[i].op2);
+		printf("%s\t R3, R1, R2\n", instr);
+		printf("STORE\t %s, R3\n", code[i].res);
 	}
 }
