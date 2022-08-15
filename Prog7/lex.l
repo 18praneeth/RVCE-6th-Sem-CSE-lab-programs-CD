@@ -1,37 +1,17 @@
 %{
-#include "7.tab.h"
+    #include "y.tab.h"
 %}
 
-%option noyywrap
-%option outfile="7.c"
-
 %%
+[\t\n ] ;
 
-"int"|"float"|"char" return DTYPE;
+"int"|"float"|"char"|"void" {return TYPE;}
 
-"void" return VOID;
+"return" {return RET;}
 
-[a-zA-Z_][a-zA-Z_0-9]* return IDEN;
+[a-zA-Z][a-zA-Z0-9_]* {return ID;}
 
-[0-9]+ return NUM;
+[0-9]+ {return NUM;}
 
-"++"|"--" return UOP;
-
-"!" return BUOP;
-
-[-+*/%] |
-[><]=? |
-==|!= return BOP;
-
-"&&"|"||" return BBOP;
-
-= return ASS;
-
-[();{},] return yytext[0];
-
-[ \t\n]+ ;
-
-. ;
-
+. {return yytext[0];}
 %%
-

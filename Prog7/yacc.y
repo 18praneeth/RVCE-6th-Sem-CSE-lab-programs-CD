@@ -1,73 +1,43 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-
-extern FILE *yyin;
-
-int yylex(void);
-int yyerror(const char *);
-
+    #include<stdio.h>
+    #include<stdlib.h>
 %}
 
-%token DTYPE VOID IDEN NUM UOP BUOP BOP BBOP ASS
-
+%token TYPE ID NUM RET
+ 
 %%
-
-FUNC	: RET IDEN '(' PARS ')' BLOCK
-	| RET IDEN '(' VOID ')' BLOCK
-	| RET IDEN '(' ')' BLOCK
-	;
-
-RET	: DTYPE
-	| VOID
-	;
-
-PARS	: PARS ',' PAR
-	| PAR
-	;
-
-PAR	: DTYPE IDEN
-	;
-
-STMT	: DECL ';'
-	| EXP_O ';'
-	| BLOCK
-	;
-
-BLOCK	: '{' STMTS '}'
-	;
-
-STMTS	: STMTS STMT
-	|
-	;
-
-DECL	: DTYPE IDEN
-	| DTYPE IDEN ASS EXP
-	;
-
-EXP_O	: EXP
-	|
-	;
-
-EXP	: IDEN
-	| NUM
-	| UOP EXP
-	| EXP UOP
-	| BUOP EXP
-	| EXP BOP EXP
-	| EXP BBOP EXP
-	| EXP ASS EXP
-	;
-
+S: FUN  {printf("Accepted\n");exit(0);}
+;
+FUN:    TYPE ID '(' PARAM ')' '{' BODY '}'
+;
+PARAM: PARAM ',' TYPE ID
+|TYPE ID
+|
+;
+BODY: BODY BODY
+| PARAM ';'
+| E ';'
+| RET E ';'
+|
+;
+E: ID '=' E
+| E '+' E
+| E '-' E
+| E '*' E
+| E '/' E
+| ID
+| NUM
+;
 %%
-
-void main() {
-	yyin = fopen("7.txt", "r");
-	yyparse();
-	printf("Valid function definition\n");
+int main()
+{
+    printf("enter input: ");
+    yyparse();
+    printf("successfull\n");
+    return 0;
 }
-
-int yyerror(const char *s) {
-	printf("Invalid syntax\n");
-	exit(0);
+int yyerror()
+{
+    printf("ERROR\n");
+    exit(0);
 }
