@@ -3,28 +3,27 @@
 	#include<stdlib.h>
 	int cnt=0;
 %}
-%token FOR LPAREN RPAREN LF RF EXP SPACE NUM
+%token FOR EXP NUM
 %%
 S:I
 ;
 I:FOR A B	{cnt++;}
 ;
-A:LPAREN E';'E';'E RPAREN
+A:'('E';'E';'E')'
 ;
 E:EXP Z EXP
 |EXP Z NUM
 |EXP U
-|SPACE
 |
 ;
 Z:'='|'>'|'<'|'<''='|'>''='|'=''+'|'=''-'
 ;
 U:'+''+'|'-''-' 
 ;
-B:LF B RF
+B:B B
+|'{' B '}'
 |I
-|EXP
-|EXP SPACE I
+|E';'
 |
 ;
 %%

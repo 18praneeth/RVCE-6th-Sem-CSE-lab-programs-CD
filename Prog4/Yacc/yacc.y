@@ -1,41 +1,41 @@
 %{
-	#include<stdio.h>
-	#include<stdlib.h>
-	int cnt=0;
+    #include<stdio.h>
+    #include<stdlib.h>
+    int cnt=0;
 %}
-%token IF LPAREN RPAREN LF RF EXP SPACE NUM
+%token IF EXP NUM
 %%
 S:I
 ;
-I:IF A B	{cnt++;}
+I:IF A B    {cnt++;}
 ;
-A:LPAREN E RPAREN
+A:'('E')'
 ;
 E:EXP Z EXP
 |EXP Z NUM
 |EXP U
-|SPACE
 |
 ;
-Z:'='|'>'|'<'|'<''='|'>''='|'=''+'|'=''-'
+Z:'='|'<'|'>'|'<''='|'>''='|'=''+'|'=''-'
 ;
-U:'+''+'|'-''-' 
+U:'+''+'|'-''-'
 ;
-B:LF B RF
+B:B B
+|'{'B'}'
 |I
-|EXP
-|EXP SPACE I
+|E';'
 |
 ;
 %%
 int main()
 {
-	yyparse();
-	printf("Count of if : %d\n",cnt);
-	return 0;
+    printf("Enter the snippet:\n");
+    yyparse();
+    printf("Count of if is %d\n",cnt);
+    return 0;
 }
 int yyerror()
 {
-	printf("Invalid\n");
-	exit(0);
+    printf("Invalid\n");
+    exit(0);
 }
