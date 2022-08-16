@@ -46,7 +46,7 @@ int main()
                 dispstk();
                 dispinp();
                 if(arr[i+1]!='\0')
-                    printf("\t\t\tShift3");
+                    printf("\t\t\tShift");
                 break;
             case '+':
             case '-':
