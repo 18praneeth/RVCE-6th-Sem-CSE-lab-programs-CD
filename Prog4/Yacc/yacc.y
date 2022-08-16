@@ -3,7 +3,7 @@
     #include<stdlib.h>
     int cnt=0;
 %}
-%token IF EXP NUM
+%token IF IDEN NUM
 %%
 S:I
 ;
@@ -11,10 +11,10 @@ I:IF A B    {cnt++;}
 ;
 A:'('E')'
 ;
-E:EXP Z EXP
-|EXP Z NUM
-|EXP U
-|
+E:IDEN Z IDEN
+|IDEN Z NUM
+|IDEN U
+|IDEN
 ;
 Z:'='|'<'|'>'|'<''='|'>''='|'=''+'|'=''-'
 ;

@@ -3,15 +3,15 @@
     #include<stdlib.h>
 %}
 
-%token TYPE ID NUM RET
+%token TYPE IDEN NUM RET
  
 %%
 S: FUN  {printf("Accepted\n");exit(0);}
 ;
-FUN:    TYPE ID '(' PARAM ')' '{' BODY '}'
+FUN:    TYPE IDEN '(' PARAM ')' '{' BODY '}'
 ;
 PARAM: PARAM ',' PARAM
-|TYPE ID
+|TYPE IDEN
 |
 ;
 BODY: BODY BODY
@@ -20,12 +20,12 @@ BODY: BODY BODY
 | RET E ';'
 |
 ;
-E: ID '=' E
+E: IDEN '=' E
 | E '+' E
 | E '-' E
 | E '*' E
 | E '/' E
-| ID
+| IDEN
 | NUM
 ;
 %%
