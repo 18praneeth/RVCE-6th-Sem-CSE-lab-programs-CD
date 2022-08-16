@@ -14,7 +14,7 @@ A:'('E';'E';'E')'
 E:IDEN Z IDEN
 |IDEN Z NUM
 |IDEN U
-|
+|IDEN
 ;
 Z:'='|'>'|'<'|'<''='|'>''='|'=''+'|'=''-'
 ;
@@ -29,6 +29,7 @@ B:B B
 %%
 int main()
 {
+	printf("Enter the snippet:\n");
 	yyparse();
 	printf("Count of for : %d\n",cnt);
 	return 0;
