@@ -10,7 +10,7 @@ S: FUN  {printf("Accepted\n");exit(0);}
 ;
 FUN:    TYPE ID '(' PARAM ')' '{' BODY '}'
 ;
-PARAM: PARAM ',' TYPE ID
+PARAM: PARAM ',' PARAM
 |TYPE ID
 |
 ;
