@@ -1,5 +1,5 @@
 <p>RV College of Engineering, Bengaluru</p>
-<p><strong><span style="font-family: Georgia, serif; font-size: 28px;">Compiler Design(18CS63)</span></strong></p>
+<p><strong><span style="font-family: serif; font-size: 28px;">Compiler Design(18CS63)</span></strong></p>
 <p>Lab Programs (CIE and SEE)</p>
 <p><br></p>
 <ol>
